@@ -1,0 +1,49 @@
+name: Django CI 🚀
+
+on:  
+  push:  
+    branches: [ main ]  
+  pull_request:  
+    branches: [ main ]  
+
+jobs:  
+  test:  
+    runs-on: ubuntu-latest  
+
+    services:  
+      mysql:  
+        image: mysql:5.7  
+        env:  
+          MYSQL_ROOT_PASSWORD: root  
+          MYSQL_DATABASE: test_db  
+          MYSQL_USER: user  
+          MYSQL_PASSWORD: password  
+        ports:  
+          - 3306:3306  
+        options: --health-cmd="mysqladmin ping --host=localhost --user=root --password=root" --health-interval=10s --health-timeout=5s --health-retries=3  
+
+    steps:  
+    - name: Checkout repository  
+      uses: actions/checkout@v3  
+
+    - name: Set up Python  
+      uses: actions/setup-python@v4  
+      with:  
+        python-version: '3.9'  
+
+    - name: Install dependencies  
+      run: |  
+        python -m venv venv  
+        source venv/bin/activate  
+        pip install --upgrade pip  
+        pip install -r requirements.txt  
+
+    - name: Run migrations  
+      run: |  
+        source venv/bin/activate  
+        python manage.py migrate  
+
+    - name: Run tests  
+      run: |  
+        source venv/bin/activate  
+        python manage.py test  
