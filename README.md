@@ -63,6 +63,14 @@ Now your Django Doctor Consultation platform is up and running!
 
 
 
+## 👥 Contributors  
+
+💡 This project is built with the collaboration of:  
+
+- https://github.com/DeepVaishnav17 – Deep Vaishnav 🚀  
+- https://github.com/shubham14102005 – Shubham Vaghani 🔥
+
+
 🎯 Future Enhancements
 
 AI-powered doctor recommendations
